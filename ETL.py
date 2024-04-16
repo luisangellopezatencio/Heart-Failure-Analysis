@@ -18,7 +18,7 @@ class ETL:
         try:
             if response.status_code == requests.codes.ok:
                 data = io.StringIO(response.text)
-                print("Data retrieved successfully")
+                print("Data gathered successfully")
                 data = pd.read_csv(data)
                 return data
         except Exception as e:
@@ -55,6 +55,7 @@ class ETL:
             lower_bound = Q1 - 1.5 * IQR
             upper_bound = Q3 + 1.5 * IQR
             data = data.query(f"{column} >= {lower_bound} and {column} <= {upper_bound}")
+        print("Outliers eliminated")
 
         Child = data.query('age <= 12')
         teen = data.query('age > 12 and age <= 19')
@@ -69,6 +70,9 @@ class ETL:
         data.loc[adult_young.index, "age_group"] = "Adult_Young"
         data.loc[adult.index, "age_group"] = "Adult"
         data.loc[old.index, "age_group"] = "Old"
+        print("Age groups created")
+        print("Data transformation completed")
+
 
         return data
     
@@ -79,11 +83,11 @@ class ETL:
         return: None
         """
         data.to_csv("heart_failure_clean.csv", index=False)
+        print("Data loaded successfully, file saved as heart_failure_clean.csv")
+        print("ETL process completed")
         
 url = argv[1]       
 etl = ETL(url=url)
 data = etl.getData()
 data_clean = etl.transform_data(data)
 etl.load_data(data_clean)
-print(data.head())
-print(data_clean.head())
