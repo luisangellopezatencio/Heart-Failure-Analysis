@@ -23,3 +23,6 @@ The 13 clinical characteristics included in the dataset are:
 - Smoking: whether the patient smokes or not (boolean)
 - Time: follow-up period (days)
 - [Objective] Death event: whether the patient died during the follow-up period (Boolean)
+
+## Ver Notebook
+[Notebook](https://github.com/luisangellopezatencio/Heart-Failure-Analysis/blob/main/Heart-Failure-Analysis.ipynb)
